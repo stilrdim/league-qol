@@ -1,0 +1,9 @@
+{
+    "name": "league-qol",
+    "version": "1.0.0",
+    "main": "main.js",
+    "bin": "main.js",
+    "scripts": {
+        "build": "pkg main.js --targets node18-win-x64 --output league-qol.exe && node patch-icon.js"
+    }
+}
