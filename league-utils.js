@@ -48,6 +48,8 @@ export function fetchGameId(lolAPIResponse) {
 }
 
 export function saveGameId(gameId) {
+  if (!gameId) return;
+
   fs.writeFileSync(savefilePath, gameId, "utf-8");
 }
 
