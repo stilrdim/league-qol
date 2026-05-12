@@ -82,6 +82,10 @@ function normalizeChampionName(champName) {
       normalizedName = "renata"
       break;
 
+    case "wukong":
+      normalizedName = "MonkeyKing";
+      break;
+
     default:
       break;
   }

@@ -19,7 +19,11 @@ export const normalizeChampionName = (champName) => {
 
   switch (normalizedName) {
     case "renataglasc":
-      normalizedName = "Renata"
+      normalizedName = "Renata";
+      break;
+
+    case "wukong":
+      normalizedName = "MonkeyKing";
       break;
 
     default:
