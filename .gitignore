@@ -4,3 +4,4 @@ gameid.txt
 *.rar
 *.exe*
 test*
+*.log
