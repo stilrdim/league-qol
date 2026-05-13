@@ -2,5 +2,5 @@ node_modules/
 data/
 gameid.txt
 *.rar
-*.exe
+*.exe*
 test*
