@@ -15,6 +15,7 @@ async function downloadUpdate() {
     const { data: latestRelease } = await axios.get(`https://api.github.com/repos/stilrdim/league-qol/releases/latest`, { headers: { Authorization: `Bearer ${TOKEN}`, Accept: "application/vnd.github+json" } })
 
     const latestVersion = latestRelease.tag_name;
+    const latestDescription = latestRelease.body;
 
     if (latestVersion === CURRENT_VERSION) {
       console.log("No new updates available.");
@@ -87,7 +88,7 @@ async function downloadUpdate() {
     // Run update.vbs which in turn runs update.bat silently
     spawn("wscript.exe", [vbsPath], { detached: true, windowsHide: true }).unref();
 
-    console.log("Update applied. \n\n\n[!] Relaunch the app\n");
+    console.log(`Update applied.\n\nUpdate description:\n${latestDescription}\n\n\n[!] Relaunch the app\n`);
     keepOpen();
 
     return true;
