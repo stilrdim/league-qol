@@ -18,7 +18,7 @@ async function downloadUpdate() {
     const latestDescription = latestRelease.body;
 
     if (latestVersion === CURRENT_VERSION) {
-      console.log("No new updates available.");
+      console.log("No new updates available.\n\n");
       return false;
     };
 
@@ -225,7 +225,7 @@ async function poll() {
   } catch (err) {
     if (!ingame) return;
     ingame = false;
-    console.log(`${generateTimestamp()} Game ended`);
+    console.log(`${generateTimestamp()} Game ended\n`);
   }
 }
 
