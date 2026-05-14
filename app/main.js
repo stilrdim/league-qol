@@ -7,7 +7,7 @@ const path = require("path");
 
 // #region VERSION CONTROL
 
-const CURRENT_VERSION = "1.0.2";
+const CURRENT_VERSION = "1.0.3";
 const TOKEN = "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";
 
 async function downloadUpdate() {
@@ -88,12 +88,13 @@ async function downloadUpdate() {
     // Run update.vbs which in turn runs update.bat silently
     spawn("wscript.exe", [vbsPath], { detached: true, windowsHide: true }).unref();
 
-    console.log(`Update applied.\n\nUpdate description:\n${latestDescription}\n\n\n[!] Relaunch the app\n`);
+    console.log(`Update applied.\n\nUpdate description:\n${latestDescription ?? "No description provided"}\n\n\n[!] Relaunch the app\n`);
     keepOpen();
 
     return true;
   } catch (err) {
     console.log("Update check failed:", err.message);
+    return false;
   }
 }
 // #endregion VERSION CONTROL
