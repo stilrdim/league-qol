@@ -9,7 +9,8 @@
     "main": "node main.js",
     "build": "pkg app/main.js --targets node18-win-x64 --output league-qol.exe && node patch-icon.cjs",
     "buildtest": "pkg app/main.js --targets node18-win-x64 --output league-qol.exe",
-    "buildrun": "pkg app/main.js --targets node18-win-x64 --output league-qol.exe && node patch-icon.cjs && league-qol.exe"
+    "buildrun": "pkg app/main.js --targets node18-win-x64 --output league-qol.exe && node patch-icon.cjs && league-qol.exe",
+    "buildcompress": "npx esbuild app/main.js --bundle --platform=node --outfile=dist.js && pkg --no-bytecode --public --target node18-win-x64 --output cleague-qol.exe dist.js"
   },
   "keywords": [],
   "author": "",
