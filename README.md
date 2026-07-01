@@ -20,7 +20,11 @@ npm run build
 
 3. Find the executable in `./app/league-qol.exe`
 
-- `./app/main.js` is a bundled single-file version of the app, used for packaging into a `.exe` for easy distribution to non-technical users.
+- `./app/main.js`\* is a bundled single-file version of the app, used for packaging into a `.exe` for easy distribution to non-technical users.
+
+> Since this is a public repo, and it requires interacting with a Github Token which should be treated as a secret, `main.js` is no longer being tracked.
+
+> Storing it in an `.env` file would complicate user experience by requiring the user to store it somewhere locally as well, otherwise distributing a simple .exe wouldn't work.
 
 ---
 
