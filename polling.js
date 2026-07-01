@@ -2,7 +2,7 @@ import { exec } from "child_process";
 import axios from "axios";
 import https from "https";
 import { generateTimestamp } from "./utils.js";
-import { fetchGameId, gameIdExists, GAMEMODES, getChampionName, normalizeChampionName, saveGameId } from "./league-utils.js";
+import { fetchGameId, fetchRecommendedAugments, gameIdExists, GAMEMODES, getChampionName, normalizeChampionName, saveGameId } from "./league-utils.js";
 import { IN_DEBUG_MODE } from "./main.js";
 
 
@@ -36,6 +36,8 @@ export async function poll() {
     console.log(`${generateTimestamp()} Opening ARAM MAYHEM page for ${champName}`)
 
     exec(`start https://blitz.gg/lol/champions/${normalizedChampName}/aram-mayhem`)
+
+    await fetchRecommendedAugments(champName);
   } catch (err) {
     if (!ingame) return;
     ingame = false;
