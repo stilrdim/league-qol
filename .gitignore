@@ -5,3 +5,5 @@ gameid.txt
 *.exe*
 test*
 *.log
+.env
+main.js
