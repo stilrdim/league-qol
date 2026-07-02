@@ -37,7 +37,7 @@ export async function poll() {
 
     exec(`start https://blitz.gg/lol/champions/${normalizedChampName}/aram-mayhem`)
 
-    await fetchRecommendedAugments(champName);
+    await fetchRecommendedAugments(champName, normalizedChampName);
   } catch (err) {
     if (!ingame) return;
     ingame = false;
