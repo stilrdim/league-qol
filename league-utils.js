@@ -68,7 +68,7 @@ export function gameIdExists(gameId) {
 
 export async function fetchRecommendedAugments(champName) {
   try {
-    const res = await axios.get(`https://arammayhem.com/build/${champName}/`)
+    const res = await axios.get(`https://arammayhem.com/build/${champName.toLowerCase()}/`)
 
     const $ = cheerio.load(res.data);
     const augmentEls = $(".group.flex.items-start.gap-3.p-3.rounded-lg");
