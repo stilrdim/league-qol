@@ -1,13 +1,35 @@
 import fs from "fs";
 import { __dirname } from "./utils.js";
 import path from "path";
-import { IN_DEBUG_MODE } from "./main.js";
+import { CHAMPS_BY_NAME, IN_DEBUG_MODE } from "./main.js";
 
 export const GAMEMODES = {
   ARAM_MAYHEM: "kiwi"
 }
 
-export const normalizeChampionName = (champName) => {
+export async function initChampData() {
+  try {
+    const { data: allGamePatches } = await axios.get("https://ddragon.leagueoflegends.com/api/versions.json");
+    const currentGamePatch = allGamePatches[0];
+
+    const { data: champData } = await axios.get(`https://ddragon.leagueoflegends.com/cdn/${currentGamePatch}/data/en_US/champion.json`)
+
+    for (const champ of Object.values(champData.data)) {
+      CHAMPS_BY_NAME[champ.name.toLowerCase()] = champ;
+    };
+
+    if (!IN_DEBUG_MODE) return;
+
+    console.log("Champion data initialized successfully.")
+
+  } catch (err) {
+    console.log(`Error when initializing champion data. The app should still work fine.`)
+    if (!IN_DEBUG_MODE) return;
+    console.error(err);
+  }
+}
+
+export function normalizeChampionName(champName) {
   if (!champName) {
     console.log(
       "Something went wrong when getting the champion name. Received empty string."
@@ -15,24 +37,35 @@ export const normalizeChampionName = (champName) => {
     return;
   }
 
-  // Remove all spaces and . ' "
-  let normalizedName = champName.toLowerCase().replace(/[.'" ]/g, "");
+  let normalizedName = "";
 
-  switch (normalizedName) {
-    case "renataglasc":
-      normalizedName = "Renata";
-      break;
+  if (Object.keys(CHAMPS_BY_NAME).length > 0) {
+    normalizedName = CHAMPS_BY_NAME[champName.toLowerCase()].id
+    normalizedName = normalizedName.toLowerCase();
+  } else {
 
-    case "wukong":
-      normalizedName = "MonkeyKing";
-      break;
+    // Remove all spaces and . ' " &
+    normalizedName = champName.toLowerCase().replace(/[.'"& ]/g, "");
 
-    default:
-      break;
+    switch (normalizedName) {
+      case "renataglasc":
+        normalizedName = "renata"
+        break;
+
+      case "wukong":
+        normalizedName = "MonkeyKing";
+        break;
+
+      case "nunuwillump":
+        normalizedName = "nunu";
+        break;
+
+      default:
+        break;
+    }
   }
-
   return normalizedName;
-};
+}
 
 export function getChampionName(lolAPIResponse) {
   const summonerName = lolAPIResponse.activePlayer.riotIdGameName;
